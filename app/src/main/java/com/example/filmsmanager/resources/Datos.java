@@ -9,6 +9,8 @@ package com.example.filmsmanager.resources;
 //        }
 //    }
 
+import com.example.filmsmanager.R;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
