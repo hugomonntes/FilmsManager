@@ -17,10 +17,24 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.filmsmanager.resources.Pelicula;
 
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+	ArrayList<Pelicula> peliculas;
 	RecyclerView recyclerView;
 	Toolbar toolbar;
+	MyAdapter adaptador;
+	public void rellenaDatos(int vueltas){
+		peliculas = new ArrayList<Pelicula>();
+		for (int i=1;i<=vueltas;i++) {
+			peliculas.add(new Pelicula(peliculas.get(i).getTitulo() + "", peliculas.get(i).getDirector() + "",
+					peliculas.get(i).getDuracion(), peliculas.get(i).getFecha(),
+					peliculas.get(i).getSala(), peliculas.get(i).getClasi(), peliculas.get(i).getPortada()));
+		}
+	}
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
 		toolbar = findViewById(R.id.toolbar);
 		ActionBar actionBar = getSupportActionBar();
 		setSupportActionBar(toolbar);
+		recyclerView = findViewById(R.id.rv);
+
+		setContentView(R.layout.activity_main);
+		rellenaDatos(10);
+		adaptador = new MyAdapter(peliculas);
 		recyclerView = findViewById(R.id.rv);
 	}
 
