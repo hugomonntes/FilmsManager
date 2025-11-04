@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/all"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="All"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/favs"
+        android:icon="@android:drawable/btn_star_big_off"
+        android:title="Favs"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="add"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_slideshow"
+        android:title="show"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/see"
+        android:icon="@android:drawable/star_on"
+        android:title="seeFavFilms"
+        app:showAsAction="always" />
+</menu>
