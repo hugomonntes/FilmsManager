@@ -16,9 +16,27 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 	ArrayList<Pelicula> peliculas;
+	static int selectedPos = RecyclerView.NO_POSITION;
 
 	public MyAdapter(ArrayList<Pelicula> peliculas) {
 		this.peliculas = peliculas;
+	}
+
+	public int getSelectedPos(){
+		return selectedPos;
+	}
+
+	public void setSelectedPos(int nuevaPos){
+		if (nuevaPos == selectedPos){
+			this.selectedPos = RecyclerView.NO_POSITION;
+			notifyItemChanged(selectedPos);
+		} else {
+			if (this.selectedPos != RecyclerView.NO_POSITION){
+				notifyItemChanged(selectedPos);
+			}
+			this.selectedPos = nuevaPos;
+		}
+		notifyItemChanged(selectedPos);
 	}
 
 	@NonNull
@@ -29,12 +47,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 		return vh;
 	}
 
-	@Override // Se añaden los datos a cada celda
+	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 		Pelicula pelicula = this.peliculas.get(position);
 		holder.getTxvDirector().setText(pelicula.getDirector());
 		holder.getTxvTitulo().setText(pelicula.getTitulo());
 		holder.getImgPegi().setImageResource(pelicula.getClasi());
+		holder.getImagePortada().setImageResource(pelicula.getPortada());
+		if (selectedPos == position)
+			holder.itemView.setBackgroundResource(R.color.green);
+		else holder.itemView.setBackgroundResource(R.color.white);
 	}
 
 	@Override
@@ -47,11 +69,26 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 		TextView txvDirector;
 		ImageView imgPegi;
 
+		ImageView imagePortada;
+
 		public ViewHolder(View viewElemento) {
 			super(viewElemento);
 			this.txvTitulo = viewElemento.findViewById(R.id.textView);
 			this.txvDirector = viewElemento.findViewById(R.id.textView3);
-			this.imgPegi = viewElemento.findViewById(R.id.imageView);
+			this.imgPegi = viewElemento.findViewById(R.id.pegi);
+			this.imagePortada = viewElemento.findViewById(R.id.imageView);
+
+			viewElemento.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					int posPulsada=getAdapterPosition();
+					setSelectedPos(posPulsada);
+					if (selectedPos>RecyclerView.NO_POSITION){
+						Toast.makeText(viewElemento.getContext(), peliculas.
+								                                  get(selectedPos).getTitulo(),Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
 		}
 
 		public TextView getTxvTitulo() {
@@ -64,6 +101,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 		public ImageView getImgPegi() {
 			return imgPegi;
+		}
+
+		public ImageView getImagePortada() {
+			return imagePortada;
 		}
 	}
 }

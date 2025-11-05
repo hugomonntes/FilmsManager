@@ -1,7 +1,8 @@
 package com.example.filmsmanager;
 
 import androidx.annotation.NonNull;
-import androidx. appcompat. app. ActionBar;
+import androidx.appcompat.app.ActionBar;
+
 import android.app.Notification;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,13 +10,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx. appcompat. widget. Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.filmsmanager.resources.Datos;
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 	RecyclerView recyclerView;
 	Toolbar toolbar;
 	MyAdapter adaptador;
+	ActionBar actionBar;
+	RecyclerView.LayoutManager miLayoutManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +46,15 @@ public class MainActivity extends AppCompatActivity {
 		});
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-		ActionBar actionBar = getSupportActionBar();
 		recyclerView = findViewById(R.id.rv);
-		setContentView(R.layout.activity_main);
 		Datos d = new Datos();
-		d.rellenaPeliculas();
+		peliculas = d.rellenaPeliculas();
 		adaptador = new MyAdapter(peliculas);
+		//miLayoutManager = new GridLayoutManager(this, 1);
+		miLayoutManager = new GridLayoutManager(this, 1,
+				GridLayoutManager.VERTICAL, true);
+		recyclerView.setLayoutManager(miLayoutManager);
+		recyclerView.setAdapter(adaptador);
 	}
 
 	@Override
@@ -58,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		actionBar = getSupportActionBar();
 		int id = item.getItemId();
 		if (id == R.id.all) {
 			return true;
@@ -67,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 			return true;
 		} else if (id == R.id.show) {
 			return true;
-		}   else if (id == R.id.favs) {
+		} else if (id == R.id.favs) {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
