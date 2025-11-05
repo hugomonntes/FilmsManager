@@ -1,5 +1,6 @@
 package com.example.filmsmanager;
 
+import androidx.annotation.NonNull;
 import androidx. appcompat. app. ActionBar;
 import android.app.Notification;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.filmsmanager.resources.Datos;
 import com.example.filmsmanager.resources.Pelicula;
 
 import java.util.ArrayList;
@@ -26,15 +28,6 @@ public class MainActivity extends AppCompatActivity {
 	RecyclerView recyclerView;
 	Toolbar toolbar;
 	MyAdapter adaptador;
-	public void rellenaDatos(int vueltas){
-		peliculas = new ArrayList<Pelicula>();
-		for (int i=1;i<=vueltas;i++) {
-			peliculas.add(new Pelicula(peliculas.get(i).getTitulo() + "", peliculas.get(i).getDirector() + "",
-					peliculas.get(i).getDuracion(), peliculas.get(i).getFecha(),
-					peliculas.get(i).getSala(), peliculas.get(i).getClasi(), peliculas.get(i).getPortada()));
-		}
-	}
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +40,13 @@ public class MainActivity extends AppCompatActivity {
 			return insets;
 		});
 		toolbar = findViewById(R.id.toolbar);
-		ActionBar actionBar = getSupportActionBar();
 		setSupportActionBar(toolbar);
+		ActionBar actionBar = getSupportActionBar();
 		recyclerView = findViewById(R.id.rv);
-
 		setContentView(R.layout.activity_main);
-		rellenaDatos(10);
+		Datos d = new Datos();
+		d.rellenaPeliculas();
 		adaptador = new MyAdapter(peliculas);
-		recyclerView = findViewById(R.id.rv);
 	}
 
 	@Override
@@ -65,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.all) {
 			return true;
