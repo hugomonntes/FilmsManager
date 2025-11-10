@@ -1,6 +1,8 @@
 package com.example.filmsmanager;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,11 +14,35 @@ import com.example.filmsmanager.resources.Pelicula;
 
 import java.util.ArrayList;
 
-public class AdapterListadoCompleto {
+public class AdapterListadoCompleto extends RecyclerView.Adapter<AdapterListadoCompleto.ViewHolder>{
 	ArrayList<Pelicula> peliculas;
 
 	public AdapterListadoCompleto(ArrayList<Pelicula> peliculas){
 		this.peliculas = peliculas;
+	}
+
+	@NonNull
+	@Override
+	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		View elemento = LayoutInflater.from(parent.getContext()).inflate(R.layout.celda_listado_completo,parent,false);
+		ViewHolder vh = new ViewHolder(elemento);
+		return vh;
+	}
+
+	@Override
+	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+		Pelicula pelicula = this.peliculas.get(position);
+		holder.getImgPortada().setImageResource(pelicula.getPortada());
+		holder.getImgPegi().setImageResource(pelicula.getClasi());
+		holder.getTxv4().setText(pelicula.getDirector());
+		holder.getTxv5().setText(pelicula.getFecha().toString());
+		holder.getTxv6().setText(pelicula.getDuracion() + "");
+		holder.getTxv7().setText(pelicula.getSala());
+	}
+
+	@Override
+	public int getItemCount() {
+		return 0;
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
