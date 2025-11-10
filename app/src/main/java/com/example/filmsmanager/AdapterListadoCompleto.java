@@ -30,6 +30,41 @@ public class AdapterListadoCompleto {
 
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
+			this.imgPortada = itemView.findViewById(R.id.imageView2);
+			this.imgPegi = itemView.findViewById(R.id.imageView3);
+			this.imgButton = itemView.findViewById(R.id.imageButton2);
+			this.txv4 = itemView.findViewById(R.id.textView4);
+			this.txv5 = itemView.findViewById(R.id.textView5);
+			this.txv6 = itemView.findViewById(R.id.textView6);
+			this.txv7 = itemView.findViewById(R.id.textView7);
+		}
+
+		public ImageView getImgPortada(){
+			return imgPortada;
+		}
+
+		public ImageView getImgPegi() {
+			return imgPegi;
+		}
+
+		public ImageButton getImgButton() {
+			return imgButton;
+		}
+
+		public TextView getTxv4() {
+			return txv4;
+		}
+
+		public TextView getTxv5() {
+			return txv5;
+		}
+
+		public TextView getTxv6() {
+			return txv6;
+		}
+
+		public TextView getTxv7() {
+			return txv7;
 		}
 	}
 }
