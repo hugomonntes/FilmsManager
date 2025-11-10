@@ -34,8 +34,9 @@ public class MainActivity2 extends AppCompatActivity {
 		Datos datos = new Datos();
 		peliculas = datos.rellenaPeliculas();
 		adpatadorListado = new AdapterListadoCompleto(peliculas);
-		//rv = findViewById(R.id.);
-		miLayoutManager = new GridLayoutManager(this, 3,
+		rv = findViewById(R.id.rv);
+		miLayoutManager = new GridLayoutManager(this, 1);
+		miLayoutManager = new GridLayoutManager(this, 1,
 				GridLayoutManager.VERTICAL, true);
 	}
 }
