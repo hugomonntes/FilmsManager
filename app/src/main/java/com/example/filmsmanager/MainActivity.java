@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 
 import android.app.Notification;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 	MyAdapter adaptador;
 	ActionBar actionBar;
 	RecyclerView.LayoutManager miLayoutManager;
+	TextView txv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +48,12 @@ public class MainActivity extends AppCompatActivity {
 			return insets;
 		});
 		toolbar = findViewById(R.id.toolbar);
+		txv = findViewById(R.id.textView2);
 		setSupportActionBar(toolbar);
 		recyclerView = findViewById(R.id.rv);
 		Datos d = new Datos();
 		peliculas = d.rellenaPeliculas();
-		adaptador = new MyAdapter(peliculas);
+		adaptador = new MyAdapter(peliculas, txv);
 		//miLayoutManager = new GridLayoutManager(this, 1);
 		miLayoutManager = new GridLayoutManager(this, 1,
 				GridLayoutManager.VERTICAL, true);
@@ -69,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
 		actionBar = getSupportActionBar();
 		int id = item.getItemId();
 		if (id == R.id.all) {
+			// Lanzar la otra activity con el adapter
+			Intent lanzarListadoFavorito = new Intent(MainActivity.this, MainActivity2.class);
+			startActivity(lanzarListadoFavorito);
 			return true;
 		} else if (id == R.id.add) {
 			return true;

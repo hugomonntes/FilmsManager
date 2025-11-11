@@ -35,8 +35,10 @@ public class MainActivity2 extends AppCompatActivity {
 		peliculas = datos.rellenaPeliculas();
 		adpatadorListado = new AdapterListadoCompleto(peliculas);
 		rv = findViewById(R.id.rv);
-		miLayoutManager = new GridLayoutManager(this, 1);
+		//miLayoutManager = new GridLayoutManager(this, 1);
 		miLayoutManager = new GridLayoutManager(this, 1,
 				GridLayoutManager.VERTICAL, true);
+		rv.setLayoutManager(miLayoutManager);
+		rv.setAdapter(adpatadorListado);
 	}
 }

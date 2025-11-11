@@ -15,11 +15,13 @@ import com.example.filmsmanager.resources.Pelicula;
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+	TextView txv;
 	ArrayList<Pelicula> peliculas;
 	static int selectedPos = RecyclerView.NO_POSITION;
 
-	public MyAdapter(ArrayList<Pelicula> peliculas) {
+	public MyAdapter(ArrayList<Pelicula> peliculas, TextView txv) {
 		this.peliculas = peliculas;
+		this.txv = txv;
 	}
 
 	public int getSelectedPos(){
@@ -68,7 +70,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 		TextView txvTitulo;
 		TextView txvDirector;
 		ImageView imgPegi;
-
 		ImageView imagePortada;
 
 		public ViewHolder(View viewElemento) {
@@ -83,10 +84,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 				public void onClick(View v) {
 					int posPulsada=getAdapterPosition();
 					setSelectedPos(posPulsada);
-					if (selectedPos>RecyclerView.NO_POSITION){
-						Toast.makeText(viewElemento.getContext(), peliculas.
-								                                  get(selectedPos).getTitulo(),Toast.LENGTH_SHORT).show();
-					}
+					txv.setText(peliculas.get(posPulsada).getTitulo());
 				}
 			});
 		}
