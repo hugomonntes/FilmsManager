@@ -1,8 +1,14 @@
 package com.example.filmsmanager;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
+import androidx. appcompat. widget. Toolbar;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,6 +26,8 @@ public class MainActivity2 extends AppCompatActivity {
 	RecyclerView rv;
 	AdapterListadoCompleto adpatadorListado;
 	RecyclerView.LayoutManager miLayoutManager;
+	Toolbar tb;
+	ActionBar actionBar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,14 +39,33 @@ public class MainActivity2 extends AppCompatActivity {
 			return insets;
 		});
 
-		Datos datos = new Datos();
-		peliculas = datos.rellenaPeliculas();
+		peliculas = Datos.rellenaPeliculas();
 		adpatadorListado = new AdapterListadoCompleto(peliculas);
 		rv = findViewById(R.id.rv);
-		//miLayoutManager = new GridLayoutManager(this, 1);
-		miLayoutManager = new GridLayoutManager(this, 1,
-				GridLayoutManager.VERTICAL, true);
+		tb = findViewById(R.id.toolbar2);
+		miLayoutManager = new GridLayoutManager(this, 1);
 		rv.setLayoutManager(miLayoutManager);
 		rv.setAdapter(adpatadorListado);
+		setSupportActionBar(tb);
+		actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.menu_volver,menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		int id = item.getItemId();
+		if(id ==  android.R.id.home ) {
+			onBackPressed();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 }

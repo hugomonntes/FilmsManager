@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Datos {
-	public ArrayList<Pelicula> rellenaPeliculas() {
+	public static ArrayList<Pelicula> rellenaPeliculas() {
 
 		ArrayList<Pelicula> peliculas = new ArrayList<Pelicula>();
 
