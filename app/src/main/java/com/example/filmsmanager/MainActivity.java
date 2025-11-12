@@ -3,14 +3,12 @@ package com.example.filmsmanager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -20,7 +18,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.filmsmanager.resources.Datos;
@@ -50,9 +47,8 @@ public class MainActivity extends AppCompatActivity {
 		toolbar = findViewById(R.id.toolbar);
 		txv = findViewById(R.id.textView2);
 		setSupportActionBar(toolbar);
-		recyclerView = findViewById(R.id.rv);
-		Datos d = new Datos();
-		peliculas = d.rellenaPeliculas();
+		recyclerView = findViewById(R.id.rv2);
+		peliculas = Datos.rellenaPeliculas();
 		adaptador = new MyAdapter(peliculas, txv);
 		//miLayoutManager = new GridLayoutManager(this, 1);
 		miLayoutManager = new GridLayoutManager(this, 1,

@@ -1,9 +1,14 @@
 package com.example.filmsmanager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx. appcompat. widget. Toolbar;
 
@@ -38,12 +43,13 @@ public class MainActivity2 extends AppCompatActivity {
 			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 			return insets;
 		});
-
+		rv = findViewById(R.id.rv2);
+		tb = findViewById(R.id.toolbar2);
 		peliculas = Datos.rellenaPeliculas();
 		adpatadorListado = new AdapterListadoCompleto(peliculas);
-		rv = findViewById(R.id.rv);
-		tb = findViewById(R.id.toolbar2);
 		miLayoutManager = new GridLayoutManager(this, 1);
+		miLayoutManager = new GridLayoutManager(this, 1,
+				GridLayoutManager.VERTICAL, true);
 		rv.setLayoutManager(miLayoutManager);
 		rv.setAdapter(adpatadorListado);
 		setSupportActionBar(tb);
@@ -59,7 +65,6 @@ public class MainActivity2 extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		int id = item.getItemId();
 		if(id ==  android.R.id.home ) {
 			onBackPressed();

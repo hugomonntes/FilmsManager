@@ -1,5 +1,7 @@
 package com.example.filmsmanager;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +16,17 @@ import com.example.filmsmanager.resources.Pelicula;
 
 import java.util.ArrayList;
 
-public class AdapterListadoCompleto extends RecyclerView.Adapter<AdapterListadoCompleto.ViewHolder>{
+public class AdapterListadoCompleto extends RecyclerView.Adapter<AdapterListadoCompleto.ViewHolder> {
 	ArrayList<Pelicula> peliculas;
 
-	public AdapterListadoCompleto(ArrayList<Pelicula> peliculas){
+	public AdapterListadoCompleto(ArrayList<Pelicula> peliculas) {
 		this.peliculas = peliculas;
 	}
 
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View elemento = LayoutInflater.from(parent.getContext()).inflate(R.layout.celda_listado_completo,parent,false);
+		View elemento = LayoutInflater.from(parent.getContext()).inflate(R.layout.celda_listado_completo, parent, false);
 		ViewHolder vh = new ViewHolder(elemento);
 		return vh;
 	}
@@ -34,6 +36,7 @@ public class AdapterListadoCompleto extends RecyclerView.Adapter<AdapterListadoC
 		Pelicula pelicula = this.peliculas.get(position);
 		holder.getImgPortada().setImageResource(pelicula.getPortada());
 		holder.getImgPegi().setImageResource(pelicula.getClasi());
+		holder.getImgButton().setImageResource(R.drawable.g);
 		holder.getTxv4().setText(pelicula.getDirector());
 		holder.getTxv5().setText(pelicula.getFecha().toString());
 		holder.getTxv6().setText(pelicula.getDuracion() + "");
@@ -41,18 +44,14 @@ public class AdapterListadoCompleto extends RecyclerView.Adapter<AdapterListadoC
 	}
 
 	@Override
-	public int getItemCount() {
-		return 0;
+	public int getItemCount() { // TODO IMPORTANTE!
+		return peliculas.size();
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
-		private ImageView imgPortada;
-		private ImageView imgPegi;
-		private ImageButton imgButton;
-		private TextView txv4;
-		private TextView txv5;
-		private TextView txv6;
-		private TextView txv7;
+		ImageView imgPortada, imgPegi;
+		ImageButton imgButton;
+		TextView txv4, txv5, txv6, txv7;
 
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
@@ -63,9 +62,19 @@ public class AdapterListadoCompleto extends RecyclerView.Adapter<AdapterListadoC
 			this.txv5 = itemView.findViewById(R.id.textView5);
 			this.txv6 = itemView.findViewById(R.id.textView6);
 			this.txv7 = itemView.findViewById(R.id.textView7);
+			itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					int posPulsada=getAdapterPosition();
+					setSelectedPos(posPulsada);
+					if (selectedPos>RecyclerView.NO_POSITION){
+						//Intent intent = new Intent(DescriptionActivity.class);
+					}
+				}
+			});
 		}
 
-		public ImageView getImgPortada(){
+		public ImageView getImgPortada() {
 			return imgPortada;
 		}
 
@@ -91,6 +100,25 @@ public class AdapterListadoCompleto extends RecyclerView.Adapter<AdapterListadoC
 
 		public TextView getTxv7() {
 			return txv7;
+		}
+
+		int selectedPos = RecyclerView.NO_POSITION;
+
+		public int getSelectedPos() {
+			return selectedPos;
+		}
+
+		public void setSelectedPos(int nuevaPos) {
+			if (nuevaPos == this.selectedPos) {
+				this.selectedPos = RecyclerView.NO_POSITION;
+				notifyItemChanged(nuevaPos);
+			} else {
+				if (this.selectedPos >= 0) {
+					notifyItemChanged(this.selectedPos);
+				}
+				this.selectedPos = nuevaPos;
+				notifyItemChanged(nuevaPos);
+			}
 		}
 	}
 }
