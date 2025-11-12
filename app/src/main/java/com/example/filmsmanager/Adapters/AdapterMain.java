@@ -1,25 +1,25 @@
-package com.example.filmsmanager;
+package com.example.filmsmanager.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.filmsmanager.R;
 import com.example.filmsmanager.resources.Pelicula;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class AdapterMain extends RecyclerView.Adapter<AdapterMain.ViewHolder> {
 	TextView txv;
 	ArrayList<Pelicula> peliculas;
 	static int selectedPos = RecyclerView.NO_POSITION;
 
-	public MyAdapter(ArrayList<Pelicula> peliculas, TextView txv) {
+	public AdapterMain(ArrayList<Pelicula> peliculas, TextView txv) {
 		this.peliculas = peliculas;
 		this.txv = txv;
 	}

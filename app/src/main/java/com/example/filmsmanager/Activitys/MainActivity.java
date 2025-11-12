@@ -1,5 +1,9 @@
-package com.example.filmsmanager;
+package com.example.filmsmanager.Activitys;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 
@@ -20,6 +24,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.filmsmanager.Adapters.AdapterMain;
+import com.example.filmsmanager.R;
 import com.example.filmsmanager.resources.Datos;
 import com.example.filmsmanager.resources.Pelicula;
 
@@ -29,10 +35,12 @@ public class MainActivity extends AppCompatActivity {
 	ArrayList<Pelicula> peliculas;
 	RecyclerView recyclerView;
 	Toolbar toolbar;
-	MyAdapter adaptador;
+	AdapterMain adaptador;
 	ActionBar actionBar;
 	RecyclerView.LayoutManager miLayoutManager;
 	TextView txv;
+
+	ActivityResultLauncher<Intent> launcher;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +52,29 @@ public class MainActivity extends AppCompatActivity {
 			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 			return insets;
 		});
+		ArrayList<Pelicula> auxPelis = new ArrayList<>();
 		toolbar = findViewById(R.id.toolbar);
 		txv = findViewById(R.id.textView2);
 		setSupportActionBar(toolbar);
 		recyclerView = findViewById(R.id.rv2);
 		peliculas = Datos.rellenaPeliculas();
-		adaptador = new MyAdapter(peliculas, txv);
+		adaptador = new AdapterMain(peliculas, txv);
 		//miLayoutManager = new GridLayoutManager(this, 1);
 		miLayoutManager = new GridLayoutManager(this, 1,
 				GridLayoutManager.VERTICAL, true);
 		recyclerView.setLayoutManager(miLayoutManager);
 		recyclerView.setAdapter(adaptador);
+
+		launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+			@Override
+			public void onActivityResult(ActivityResult o) {
+				if (o.getResultCode() == RESULT_OK){
+					Intent intent=o.getData();
+					auxPelis = (ArrayList<Pelicula>) intent.getSerializableExtra("Peliculas");
+
+				}
+			}
+		});
 	}
 
 	@Override
@@ -71,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
 		if (id == R.id.all) {
 			// Lanzar la otra activity con el adapter
 			Intent lanzarListadoFavorito = new Intent(MainActivity.this, MainActivity2.class);
-			startActivity(lanzarListadoFavorito);
+			lanzarListadoFavorito.putExtra("Peliculas", peliculas);
+			launcher.launch(lanzarListadoFavorito);
 			return true;
 		} else if (id == R.id.add) {
 			return true;
@@ -84,4 +105,5 @@ public class MainActivity extends AppCompatActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 }

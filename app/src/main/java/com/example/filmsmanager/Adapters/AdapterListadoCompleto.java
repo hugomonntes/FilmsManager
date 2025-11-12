@@ -1,7 +1,6 @@
-package com.example.filmsmanager;
-
+package com.example.filmsmanager.Adapters;
+import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.filmsmanager.Activitys.DescriptionActivity;
+import com.example.filmsmanager.R;
 import com.example.filmsmanager.resources.Pelicula;
 
 import java.util.ArrayList;
 
 public class AdapterListadoCompleto extends RecyclerView.Adapter<AdapterListadoCompleto.ViewHolder> {
 	ArrayList<Pelicula> peliculas;
+	Context contexto;
 
-	public AdapterListadoCompleto(ArrayList<Pelicula> peliculas) {
+	public AdapterListadoCompleto(ArrayList<Pelicula> peliculas, Context contexto) {
 		this.peliculas = peliculas;
+		this.contexto = contexto; // TODO IMPORTANTE PASAR EL CONTEXTO A LA HORA DE LANZAR UN INTENT DESDE UN ADAPTER
 	}
 
 	@NonNull
@@ -67,7 +70,8 @@ public class AdapterListadoCompleto extends RecyclerView.Adapter<AdapterListadoC
 				public void onClick(View v) {
 					int posPulsada=getAdapterPosition();
 					setSelectedPos(posPulsada);
-					Intent intent = new Intent(itemView.getContext(),DescriptionActivity.class); // FIXME CORREGIR SISTEMA GESTION IR A ACTIVITY DESCRIPTION
+					Intent intent = new Intent(contexto, DescriptionActivity.class); //FIXME CORREGIR SISTEMA GESTION IR A ACTIVITY DESCRIPTION
+					contexto.startActivity(intent);
 				}
 			});
 		}

@@ -13,13 +13,13 @@
         android:theme="@style/Theme.FilmsManager"
         tools:targetApi="31">
         <activity
-            android:name=".DescriptionActivity"
+            android:name=".Activitys.DescriptionActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".Activitys.MainActivity2"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activitys.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
