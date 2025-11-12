@@ -67,9 +67,7 @@ public class AdapterListadoCompleto extends RecyclerView.Adapter<AdapterListadoC
 				public void onClick(View v) {
 					int posPulsada=getAdapterPosition();
 					setSelectedPos(posPulsada);
-					if (selectedPos>RecyclerView.NO_POSITION){
-						//Intent intent = new Intent(DescriptionActivity.class);
-					}
+					Intent intent = new Intent(itemView.getContext(),DescriptionActivity.class); // FIXME CORREGIR SISTEMA GESTION IR A ACTIVITY DESCRIPTION
 				}
 			});
 		}
